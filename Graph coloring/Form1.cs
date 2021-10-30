@@ -75,18 +75,16 @@ namespace Graph_coloring
 
         private void Color_graph_MouseClick(object sender, MouseEventArgs e)
         {
-            //аг, если на половине пошаговой раскраске добавить вершины, то потом раскрашивать будет не с нуля
-            if (ifSlowModeCheckBox.Checked)
-            {
-                Coloring(true, num, ref graph);
-                num++;
-                if (num == graph.vertexesList.Count())
-                    num = 0;
-            }
-            else
+            if (!ifSlowModeCheckBox.Checked)
             {
                 Coloring(false, num, ref graph);
+                return;
             }
+
+            Coloring(true, num, ref graph);
+            num++;
+            if (num == graph.vertexesList.Count())
+                num = 0;
         }
 
         private void Save_MouseClick(object sender, MouseEventArgs e)
@@ -156,6 +154,13 @@ namespace Graph_coloring
                     graph.DrawGraph();
                 }
             }
+        }
+
+        private void colorGraphButton_Leave(object sender, System.EventArgs e)
+        {
+            ClearEditorPictureBox();
+            num = 0;
+            graph.DrawGraph();
         }
     }
 }

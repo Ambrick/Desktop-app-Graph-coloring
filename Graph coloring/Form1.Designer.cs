@@ -98,6 +98,7 @@
             this.colorGraphButton.TabIndex = 6;
             this.colorGraphButton.Text = "Раскраска";
             this.colorGraphButton.UseVisualStyleBackColor = true;
+            this.colorGraphButton.Leave += new System.EventHandler(this.colorGraphButton_Leave);
             this.colorGraphButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Color_graph_MouseClick);
             // 
             // createGraphButton
