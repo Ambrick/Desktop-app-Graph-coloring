@@ -25,43 +25,37 @@ namespace Graph_coloring
             ClearEditorPictureBox();
         }
 
-        public void Coloring(bool ifStudy, int num, ref Graph graph)
+        public void Coloring(ref Graph graph)
         {
             int MatrixSize = graph.vertexesList.Count();
 
             List<int> color_indexes = new List<int>();
+
             for (int i = 0; i < MatrixSize; i++)
                 color_indexes.Add(0);
 
-            int[,] M = new int[MatrixSize, MatrixSize];
             for (int i = 0; i < MatrixSize; i++)
             {
                 int VertexIndexI = graph.vertexesList[i].index;
+
                 for (int j = 0; j < MatrixSize; j++)
                 {
                     int VertexIndexJ = graph.vertexesList[j].index;
 
-                    if (graph.ribsList.Contains(new Point(VertexIndexI, VertexIndexJ)))
-                        M[i, j] = 1;
-                    else
-                        M[i, j] = 0;
-                }
-            }
-
-            for (int i = 0; i < MatrixSize; i++)
-            {
-                for (int j = 0; j < MatrixSize; j++)
-                {
-                    if (M[i, j] != 0 && color_indexes[i] == color_indexes[j])
+                    if (graph.ribsList.Contains(new Point(VertexIndexI, VertexIndexJ)) && color_indexes[i] == color_indexes[j])
                     {
                         color_indexes[j]++;
+                        graph.vertexesList[i].ColorVertex(graph.colorsList[color_indexes[i]]);
                     }
                 }
             }
 
-            if (ifStudy)
+            if (ifSlowModeCheckBox.Checked)
             {
                 graph.vertexesList[num].ColorVertex(graph.colorsList[color_indexes[num]]);
+                num++;
+                if (num == graph.vertexesList.Count())
+                    num = 0;
             }
             else
             {
@@ -74,16 +68,7 @@ namespace Graph_coloring
 
         private void Color_graph_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!ifSlowModeCheckBox.Checked)
-            {
-                Coloring(false, num, ref graph);
-                return;
-            }
-
-            Coloring(true, num, ref graph);
-            num++;
-            if (num == graph.vertexesList.Count())
-                num = 0;
+            Coloring(ref graph);
         }
 
         private void Save_MouseClick(object sender, MouseEventArgs e)
