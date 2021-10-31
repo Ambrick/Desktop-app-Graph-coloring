@@ -70,7 +70,6 @@ namespace Graph_coloring
                     graph.vertexesList[i].ColorVertex(graph.colorsList[color_indexes[i]]);
                 }
             }
-            //editorPictureBox.MouseClick -= new System.Windows.Forms.MouseEventHandler(this.editorPictureBox_MouseClick);
         }
 
         private void Color_graph_MouseClick(object sender, MouseEventArgs e)
@@ -118,7 +117,7 @@ namespace Graph_coloring
             }
             else if (addEdgeButton.Focused)
             {
-                if (graph.CheckIfClickedOnVert(new Point(e.X, e.Y)) && graph.CheckSelected() == 2)
+                if (graph.CheckIfClickedOnVert(new Point(e.X, e.Y)) && graph.CountSelectedVertexes() == 2)
                     graph.AddRib();
             }
             else if (deleteVertexButon.Focused)
@@ -129,7 +128,7 @@ namespace Graph_coloring
             }
             else if (deleteEdgeButton.Focused &&
                      graph.CheckIfClickedOnVert(new Point(e.X, e.Y)) && 
-                     graph.CheckSelected() == 2)
+                     graph.CountSelectedVertexes() == 2)
             {
                 graph.DeleteRib();
                 ClearEditorPictureBox();
@@ -140,7 +139,7 @@ namespace Graph_coloring
             {
                 if (graph.CheckIfClickedOnVert(new Point(e.X, e.Y)))
                 {
-                    if (graph.CheckSelected() == 2)
+                    if (graph.CountSelectedVertexes() == 2)
                     {
                         ClearEditorPictureBox();
                         graph.UnselectAll();

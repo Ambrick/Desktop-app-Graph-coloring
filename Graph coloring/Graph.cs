@@ -67,7 +67,7 @@ namespace Graph_coloring
             }
         }
 
-        public int CheckSelected()
+        public int CountSelectedVertexes()
         {
             return vertexesList.Count(vertex => vertex.IsSelected);
         }
