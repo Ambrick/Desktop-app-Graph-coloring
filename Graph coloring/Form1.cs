@@ -10,7 +10,6 @@ namespace Graph_coloring
         private Graph graph;
         private DataBaseManager dataBaseManager;
 
-        private int num = 0;
 
         private Graphics graphEgitorBox;
 
@@ -25,40 +24,10 @@ namespace Graph_coloring
             ClearEditorPictureBox();
         }
 
-        public void Coloring(ref Graph graph)
-        {
-            int MatrixSize = graph.vertexesList.Count();
-
-            List<int> color_indexes = new List<int>();
-
-            for (int i = 0; i < MatrixSize; i++)
-                color_indexes.Add(0);
-
-   
-            int matrixIlength = ifSlowModeCheckBox.Checked ? ++num : MatrixSize;
-
-            for (int i = 0; i < matrixIlength; i++)
-            {
-                int VertexIndexI = graph.vertexesList[i].index;
-
-                for (int j = 0; j < MatrixSize; j++)
-                {
-                    int VertexIndexJ = graph.vertexesList[j].index;
-
-                    if (graph.ribsList.Contains(new Point(VertexIndexI, VertexIndexJ)) && color_indexes[i] == color_indexes[j])
-                    {
-                        color_indexes[j]++;
-                    }
-                }
-                graph.vertexesList[i].ColorVertex(graph.colorsList[color_indexes[i]]);
-            }
-
-
-        }
 
         private void Color_graph_MouseClick(object sender, MouseEventArgs e)
         {
-            Coloring(ref graph);
+            graph.Coloring(ifSlowModeCheckBox.Checked);
         }
 
         private void Save_MouseClick(object sender, MouseEventArgs e)
@@ -133,7 +102,6 @@ namespace Graph_coloring
         private void colorGraphButton_Leave(object sender, System.EventArgs e)
         {
             ClearEditorPictureBox();
-            num = 0;
             graph.DrawGraph();
         }
     }

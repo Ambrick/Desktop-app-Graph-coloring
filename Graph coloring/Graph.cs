@@ -14,6 +14,7 @@ namespace Graph_coloring
 
         private const int VertexRadius = 14;
 
+        private int num = 0;
         public int index = 0;
 
         private Graphics graphEgitorBox;
@@ -23,6 +24,35 @@ namespace Graph_coloring
             this.graphEgitorBox = graphEgitorBox;
         }
 
+        public void Coloring(bool ifSlowModeCheckBox)
+        {
+            int MatrixSize = vertexesList.Count();
+
+            List<int> color_indexes = new List<int>();
+
+            for (int i = 0; i < MatrixSize; i++)
+                color_indexes.Add(0);
+
+
+            int matrixIlength = ifSlowModeCheckBox ? ++num : MatrixSize;
+
+            for (int i = 0; i < matrixIlength; i++)
+            {
+                int VertexIndexI = vertexesList[i].index;
+
+                for (int j = 0; j < MatrixSize; j++)
+                {
+                    int VertexIndexJ = vertexesList[j].index;
+
+                    if (ribsList.Contains(new Point(VertexIndexI, VertexIndexJ)) && color_indexes[i] == color_indexes[j])
+                    {
+                        color_indexes[j]++;
+                    }
+                }
+                vertexesList[i].ColorVertex(colorsList[color_indexes[i]]);
+            }
+        }
+
         public void DrawGraph()
         {
             foreach (Point point in ribsList)
@@ -30,6 +60,8 @@ namespace Graph_coloring
 
             foreach (var vertex in vertexesList)
                 vertex.Draw();
+
+            num = 0;
         }
 
         private void DrawRib (Point point)
