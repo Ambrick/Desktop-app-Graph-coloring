@@ -7,11 +7,9 @@ namespace Graph_coloring
 {
     public partial class Form1 : Form
     {
-        private Graph graph;
-        private DataBaseManager dataBaseManager;
-
-
         private Graphics graphEgitorBox;
+        private DataBaseManager dataBaseManager;
+        private Graph graph;
 
         public Form1()
         {

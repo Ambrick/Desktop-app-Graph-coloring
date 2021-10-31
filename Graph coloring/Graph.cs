@@ -24,15 +24,11 @@ namespace Graph_coloring
             this.graphEgitorBox = graphEgitorBox;
         }
 
-        public void Coloring(bool ifSlowModeCheckBox)
+        public void Coloring (bool ifSlowModeCheckBox)
         {
             int MatrixSize = vertexesList.Count();
-
-            List<int> color_indexes = new List<int>();
-
-            for (int i = 0; i < MatrixSize; i++)
-                color_indexes.Add(0);
-
+            
+            List<int> color_indexes = Enumerable.Repeat(0, MatrixSize).ToList();
 
             int matrixIlength = ifSlowModeCheckBox ? ++num : MatrixSize;
 
@@ -45,10 +41,9 @@ namespace Graph_coloring
                     int VertexIndexJ = vertexesList[j].index;
 
                     if (ribsList.Contains(new Point(VertexIndexI, VertexIndexJ)) && color_indexes[i] == color_indexes[j])
-                    {
                         color_indexes[j]++;
-                    }
                 }
+
                 vertexesList[i].ColorVertex(colorsList[color_indexes[i]]);
             }
         }
@@ -91,12 +86,8 @@ namespace Graph_coloring
         public void UnselectAll()
         {
             foreach (var vert in vertexesList)
-            {
                 if (vert.IsSelected)
-                {
                     vert.VertexUnselected();
-                }
-            }
         }
 
         public int CountSelectedVertexes()
@@ -169,18 +160,11 @@ namespace Graph_coloring
 
         public void DeleteRib()
         {
-            List<Vertex> v = new List<Vertex> { };
-            foreach (var vert in vertexesList)
-            {
-                if (vert.IsSelected)
-                {
-                    v.Add(vert);
-                }
-            }
+            List<Vertex> v = vertexesList.FindAll(vertex => vertex.IsSelected);
 
             foreach (var Point in ribsList)
             {
-                if ((Point.X == v[0].index && Point.Y == v[1].index) || (Point.Y == v[0].index && Point.X == v[1].index))
+                if (Point.X == v[0].index && Point.Y == v[1].index || Point.Y == v[0].index && Point.X == v[1].index)
                 {
                     ribsList.Remove(Point);
                     break;
@@ -191,12 +175,8 @@ namespace Graph_coloring
         public void MoveVertex(Point point)
         {
             foreach (var vert in vertexesList)
-            {
                 if (vert.IsSelected)
-                {
                     vert.Move(point);
-                }
-            }
         }
     }
 }
