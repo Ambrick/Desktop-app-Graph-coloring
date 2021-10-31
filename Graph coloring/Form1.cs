@@ -34,7 +34,10 @@ namespace Graph_coloring
             for (int i = 0; i < MatrixSize; i++)
                 color_indexes.Add(0);
 
-            for (int i = 0; i < MatrixSize; i++)
+   
+            int matrixIlength = ifSlowModeCheckBox.Checked ? ++num : MatrixSize;
+
+            for (int i = 0; i < matrixIlength; i++)
             {
                 int VertexIndexI = graph.vertexesList[i].index;
 
@@ -45,25 +48,12 @@ namespace Graph_coloring
                     if (graph.ribsList.Contains(new Point(VertexIndexI, VertexIndexJ)) && color_indexes[i] == color_indexes[j])
                     {
                         color_indexes[j]++;
-                        graph.vertexesList[i].ColorVertex(graph.colorsList[color_indexes[i]]);
                     }
                 }
+                graph.vertexesList[i].ColorVertex(graph.colorsList[color_indexes[i]]);
             }
 
-            if (ifSlowModeCheckBox.Checked)
-            {
-                graph.vertexesList[num].ColorVertex(graph.colorsList[color_indexes[num]]);
-                num++;
-                if (num == graph.vertexesList.Count())
-                    num = 0;
-            }
-            else
-            {
-                for (int i = 0; i < MatrixSize; i++)
-                {
-                    graph.vertexesList[i].ColorVertex(graph.colorsList[color_indexes[i]]);
-                }
-            }
+
         }
 
         private void Color_graph_MouseClick(object sender, MouseEventArgs e)
